@@ -42,8 +42,8 @@ def close_and_back_buttons():
     )
 
 def create_button(button):
-    Url = button.rsplit(' ', 1)[1]
-    Name = button.split(' | ')[0]
+    Url = button.rsplit(" ", 1)[1]
+    Name = button.split(" | ")[0]
     return InlineKeyboardMarkup(
         [
             [
@@ -58,6 +58,7 @@ def create_button(button):
 def generate_caption(message, cap):
     m = message.photo or message.audio or message.video or message.document
     if m:
+        former_cap = str(message.caption) if hasattr(message, "caption") else ""
         file_id = str(m.file_id) if hasattr(m, "file_id") else ""
         file_name = str(m.file_name) if hasattr(m, "file_name") else ""
         mime_type = str(m.mime_type) if hasattr(m, "mime_type") else ""
@@ -81,6 +82,7 @@ def generate_caption(message, cap):
             .replace("{performer}", performer)\
             .replace("{title}", title)\
             .replace("{duration}", duration)\
-            .replace("{ext}", file_extension)
+            .replace("{ext}", file_extension)\
+            .replace("{former_cap}", former_cap)
 
     return caption

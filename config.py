@@ -5,7 +5,6 @@ API_HASH =  ""
 BOT_TOKEN = ""
 DB_URL = ""
 
-
 START_TEXT = """
 **Hello {},**
 **I am Channel Auto Caption bot.**
@@ -29,6 +28,7 @@ DYNAMIC_TEXT = """
 - **You can add** `{variable_name}` **in caption, bot will replace these variables by its value according to message.**
 
 **Supported variables:**
+    - `{former_cap}` -> (caption in the message)
     - `{file_id}` -> (video, audio, document, photo)
     - `{mime_type}` -> (video, audio, document)
     - `{file_name}` -> (audio, document)
@@ -48,21 +48,15 @@ DYNAMIC_TEXT = """
 MARKDOWN_TEXT = """
 <b><u>ABOUT MARKDOWN</u></b>
 
-<b>Bold text:</b>
-    <code>**text**</code>
+<b>Bold text:</b> <code>**text**</code>
 
-<b>Italic text:</b>
-    <code>__text__</code>
+<b>Italic text:</b> <code>__text__</code>
 
-<b>Underline text:</b>
-    <code>--text--</code>
+<b>Underline text:</b> <code>--text--</code>
 
-<b>Strike text:</b>
-    <code>~~text~~</code>
+<b>Strike text:</b> <code>~~text~~</code>
 
-<b>Code text:</b>
-    <code>`text`</code>
+<b>Code text:</b> <code>`text`</code>
 
-<b>Hyperlink text</b>
-    <code>[text](https://t.me/durov)</code>
+<b>Hyperlink text</b> <code>[text](https://example.com)</code>
 """

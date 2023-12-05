@@ -19,8 +19,10 @@ app = Client(NAME, api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 async def start(app, message: Message):
     await message.reply_text(
         START_TEXT.format(
-            message.from_user.first_name),
+            message.from_user.first_name
+        ),
         parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True,
         reply_markup=start_button(),
         quote=True
     )
@@ -34,7 +36,7 @@ async def button(app, message: CallbackQuery):
                 message.from_user.first_name
             ),
             parse_mode=ParseMode.MARKDOWN, 
-            disable_web_page_preview=True, 
+            disable_web_page_preview=True,
             reply_markup=start_button()
         )
     elif "close_data" in cb_data:
@@ -104,6 +106,7 @@ Send a Button name and URL(separated by ' | ').
             return await message.reply_text(
                 f"**Your Button:**\n\n{button}",
                 reply_markup=create_button(button),
+                disable_web_page_preview=True,
                 quote=True,
             )
 
@@ -171,19 +174,28 @@ Use this command to get the current button and caption of any of your channels.
     elif ("/get_info" in message.text) and (len(message.text.split(" ")) != 1):
         channel = message.text.split(" ", 1)[1].replace("-100", "")
 
-        button = (await get_button(channel)).button if await get_button(channel) else ""
-        caption = (await get_caption(channel)).caption if await get_caption(channel) else ""
+        try:
+            b = await get_button(channel)
+            button = b.button
+            reply_markup = create_button(button)
+        except:
+            button = "`None`"
+            reply_markup = None
+
+        caption = (await get_caption(channel)).caption if await get_caption(channel) else "`None`"
 
         await message.reply_text(
-                f"""
-**Your Button:**
-{button}
-
+            f"""
 **Your Caption:**
 {caption}
-                """,
-                quote=True,
-            )
+
+**Your Button:**
+{button}
+            """,
+            reply_markup=reply_markup,
+            disable_web_page_preview=True,
+            quote=True,
+        )
 
 
 @app.on_message(
@@ -207,20 +219,24 @@ async def edit(app: Client, message: Message):
     try:
         c = await get_caption(int(channel))
         cap = c.caption
-        if message.caption:
-            cap = f"{message.caption}\n\n{cap}"
         caption = generate_caption(message, cap)
     except:
         caption = None
         pass
+
+    if (caption and button) is None:
+        return
 
     if button is not None:
         if caption is not None:
             _caption = caption
             reply_markup_ = create_button(button)
         elif caption is None:
-            _caption = None
             reply_markup_ = create_button(button)
+            if message.caption:
+                _caption = message.caption
+            else:
+                _caption = None
     elif (button is None) and (caption is not None):
         _caption = caption
         reply_markup_ = None
@@ -239,4 +255,5 @@ async def edit(app: Client, message: Message):
     except Exception as e:
         print(e)
 
+print("Bot is runing...")
 app.run()

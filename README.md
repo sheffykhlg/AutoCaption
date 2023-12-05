@@ -14,30 +14,35 @@ This bot automatically add caption and button to any media/document/video sent t
 You can perform different functions using the bot's commands. Here is the use of some commands:
 1. **/get_info**
 This command allows you to retrieve the current title and button information for a specific channel.
+
 Example Usage:
 ```
 /get_info -1001234567890
 ```
 2. **/set_cap**
 This command allows you to set a custom title for a specific channel.
+
 Example Usage:
 ```
 /set_cap -1001234567890 Artist: {performer} Song: {title}
 ```
 3. **/set_btn**
 This command allows you to set a custom button for a specific channel.
+
 Example Usage:
 ```
 /set_btn -1001234567890 Channel | https://t.me/channel
 ```
 4. **/rmv_cap**
 This command allows you to remove the current title of a specific channel.
+
 Example Usage:
 ```
 /rmv_cap -1001234567890
 ```
 5. **/rmv_btn**
 This command allows you to remove the current button of a specific channel.
+
 Example Usage:
 ```
 /rmv_btn -1001234567890

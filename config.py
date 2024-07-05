@@ -1,9 +1,9 @@
 
 NAME = "AutoCaption"
-API_ID = None
-API_HASH =  ""
-BOT_TOKEN = ""
-DB_URL = ""
+API_ID = 29023986
+API_HASH =  "895fde5d06418650fdcce2fddebe8276"
+BOT_TOKEN = "7292591629:AAHDqNNpSu7qlJftlP_ponopfkv_rG3HDS0"
+DB_URL = "mongodb+srv://grouphelp:grouphelp@grouphelp.ccgqorv.mongodb.net/?retryWrites=true&w=majority&appName=grouphelp"
 
 START_TEXT = """
 **Hello {},**
